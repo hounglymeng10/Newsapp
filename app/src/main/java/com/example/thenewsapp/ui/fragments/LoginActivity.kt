@@ -34,8 +34,15 @@ class LoginActivity : AppCompatActivity() {
                 firebaseAuth.signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            val intent = Intent(this,NewsActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            val user = firebaseAuth.currentUser
+                            val userName = user?.displayName ?: "No Name"
+                            val userEmail = user?.email ?: "No Email"
+
+                            val intent = Intent(this, NewsActivity::class.java).apply {
+                                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                putExtra("USER_NAME", userName)
+                                putExtra("USER_EMAIL", userEmail)
+                            }
                             startActivity(intent)
                         } else {
                             val errorMessage = task.exception?.localizedMessage ?: "Login failed!"
@@ -46,6 +53,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Empty fields are not allowed!", Toast.LENGTH_SHORT).show()
             }
         }
+
 
 
     }
