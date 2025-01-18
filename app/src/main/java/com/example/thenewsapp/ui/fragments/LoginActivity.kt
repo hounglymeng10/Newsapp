@@ -38,6 +38,9 @@ class LoginActivity : AppCompatActivity() {
                             val userName = user?.displayName ?: "No Name"
                             val userEmail = user?.email ?: "No Email"
 
+                            // Show a success message
+                            Toast.makeText(this, "Login successful! Welcome, $userName", Toast.LENGTH_SHORT).show()
+
                             val intent = Intent(this, NewsActivity::class.java).apply {
                                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 putExtra("USER_NAME", userName)
@@ -53,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Empty fields are not allowed!", Toast.LENGTH_SHORT).show()
             }
         }
+
 
 
 
